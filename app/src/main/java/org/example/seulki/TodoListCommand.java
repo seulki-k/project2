@@ -1,21 +1,24 @@
 package org.example.seulki;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TodoListCommand {
-
+    static Scanner scanner = new Scanner(System.in);
     static ArrayList<TodoItem> todoItems = new ArrayList<>();
-
+    static TodoCalander calanders = new TodoCalander();
     static public void MainCommand(){
-        TodoCalander calanders = new TodoCalander();
+        printMain();
+
 
         int year;
         int month;
         int day;
+        // year,month,day 합해서 TodoItem의 Date
         String title; //제목
         String content; //내용
-        boolean completed = false;
+        boolean completed = false; //계획한 일 완료 여부
 
         Scanner scanner = new Scanner(System.in);
 
@@ -53,12 +56,26 @@ public class TodoListCommand {
         printAllTodoList(todoItems);
 
     }
+    public static void printMain(){
+        LocalDate currentDate = LocalDate.now();
 
-    public  static void printAllTodoList(ArrayList<TodoItem> todoItem){
+        // 연도와 월 출력
+        int titleYear = currentDate.getYear();
+        int titleMonth = currentDate.getMonthValue();
+        calanders.setCalendar(titleYear,titleMonth);
+        System.out.println();
+        System.out.println();
+        System.out.println(Ansi.YELLOW +  "TodoList 실행....." + Ansi.RESET);
+        System.out.println("Enter Key를 입력하면 프로그램이 시작됩니다.");
+        String a = scanner.nextLine();
+    }
+
+    public  static void printAllTodoList(ArrayList<TodoItem> todoItem){ //메인 화면 출력
         for (TodoItem todo : todoItem){
             System.out.println("제목 : " + todo.title);
             System.out.println("날짜 : "+ todo.date.year +"."+ todo.date.month +"."+ todo.date.day);
         }
+
 
     }
 }
