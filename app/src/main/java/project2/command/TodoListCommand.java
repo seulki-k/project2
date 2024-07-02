@@ -106,6 +106,7 @@ public class TodoListCommand {
 
                 TodoListItem todo = new TodoListItem(title, toDate, content, false);
                 todoItems.add(todo);
+                break;
             } catch (InputMismatchException e) {
                 System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
                 scanner.nextLine();
