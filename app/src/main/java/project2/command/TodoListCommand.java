@@ -76,17 +76,30 @@ public class TodoListCommand {
         int titleMonth = currentDate.getMonthValue(); ///월
         int tileDay = currentDate.getDayOfMonth(); //일
         int count = 1;
-        for (TodoListItem todoListItem : todoItems) {
-            String completed = todoListItem.isCompleted() ? Ansi.BLUE + "수행" + Ansi.RESET :
-                    (todoListItem.getDate().getYear() < titleYear || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
-                            || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() == titleMonth && todoListItem.getDate().getDay() < tileDay))
-                            ? Ansi.RED + "미수행" + Ansi.RESET : Ansi.GRAY + "미수행/기간만료" + Ansi.RESET;
+        while (true) {
 
-            System.out.println(count +". 제목 : " + todoListItem.getTitle() + "  날짜:" + todoListItem.getDate().getYear() + " . " + todoListItem.getDate().getMonth()
-                    + " . " + todoListItem.getDate().getDay() + "  " + completed);
-            count++;
+            for (TodoListItem todoListItem : todoItems) {
+                String completed = todoListItem.isCompleted() ? Ansi.BLUE + "수행" + Ansi.RESET :
+                        (todoListItem.getDate().getYear() < titleYear || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
+                                || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() == titleMonth && todoListItem.getDate().getDay() < tileDay))
+                                ? Ansi.RED + "미수행" + Ansi.RESET : Ansi.GRAY + "미수행/기간만료" + Ansi.RESET;
+
+                System.out.println(count + ". 제목 : " + todoListItem.getTitle() + "  날짜:" + todoListItem.getDate().getYear() + " . " + todoListItem.getDate().getMonth()
+                        + " . " + todoListItem.getDate().getDay() + "  " + completed);
+                count++;
+            }
+            count =1;
+            int deleteNo = Prompt.inputInt("\n삭제할 연도(종료 : 0) : ");
+            if (deleteNo == 0) {
+                System.out.println(" 종료");
+                return;
+            }
+            if ((deleteNo > todoItems.size() - 1)) {
+                System.out.println("잘못된 입력입니다.");
+                continue;
+            }
+            todoItems.remove(deleteNo - 1);
         }
-
     }
 
     public static void printAdd() {
