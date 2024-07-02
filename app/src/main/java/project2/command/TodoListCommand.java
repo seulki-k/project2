@@ -274,7 +274,7 @@ public class TodoListCommand {
                 System.out.println(" 종료");
                 return;
             }
-            if ((updateNo > todoItems.size() - 1)) {
+            if ((updateNo > todoItems.size())) {
                 System.out.println("잘못된 입력입니다.");
                 continue;
             }
@@ -284,22 +284,21 @@ public class TodoListCommand {
             String title; //제목
             String content; //내용
 
-
             try {
 
-                year = Prompt.inputInt("변경할 연도(변경 전:" + todoItems.get(updateNo).getDate().getYear() + ") : ");
-                month = Prompt.inputInt("변경할 월(변경 전:" + todoItems.get(updateNo).getDate().getMonth() + ") : ");
+                year = Prompt.inputInt("변경할 연도(변경 전:" + todoItems.get(updateNo-1).getDate().getYear() + ") : ");
+                month = Prompt.inputInt("변경할 월(변경 전:" + todoItems.get(updateNo-1).getDate().getMonth() + ") : ");
 
                 calanders.setCalendar(year, month);
                 System.out.println(" ");
 
-                day = Prompt.inputInt("변경할 일(변경 전 :" + todoItems.get(updateNo).getDate().getDay() + ") : ");
+                day = Prompt.inputInt("변경할 일(변경 전 :" + todoItems.get(updateNo-1).getDate().getDay() + ") : ");
 
                 TodoListDate toDate = new TodoListDate(year, month, day);
 
 
-                title = Prompt.input("변경할 제목(변경 전:" + todoItems.get(updateNo).getTitle() + ") : ");
-                content = Prompt.input("변경할 내용(변경 전:" + todoItems.get(updateNo).getContent() + ") : ");
+                title = Prompt.input("변경할 제목(변경 전:" + todoItems.get(updateNo-1).getTitle() + ") : ");
+                content = Prompt.input("변경할 내용(변경 전:" + todoItems.get(updateNo-1).getContent() + ") : ");
                 boolean check = false;
                 while (true) {
                     String complete = Prompt.input("완료 여부(Y/N):");
