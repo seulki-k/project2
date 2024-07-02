@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import project2.util.Prompt;
+import project2.vo.TodoItem;
 import project2.vo.TodoListDate;
 import project2.vo.TodoListItem;
 import project2.util.TodoListCalander;
@@ -30,7 +31,9 @@ public class TodoListCommand {
             System.out.println("1. 등록");
             System.out.println("2. 목록");
             System.out.println("3. 조회");
-            System.out.println("4. 종료");
+            System.out.println("4. 변경");
+            System.out.println("5. 삭제");
+            System.out.println("9. 종료");
             System.out.println("==================");
             System.out.print("메뉴를 선택하세요: ");
             String input = scanner.nextLine();
@@ -48,7 +51,13 @@ public class TodoListCommand {
                     case 3:
                         printView(todoItems);
                         break;
-                    case 4:
+                    case 4: //변경
+
+                        break;
+                    case 5: //삭제
+                        deleteView(todoItems);
+                        break;
+                    case 9:
                         System.out.println("종료.");
                         return;
                     default:
@@ -58,6 +67,26 @@ public class TodoListCommand {
                 System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
             }
         }
+    }
+
+    static void deleteView(ArrayList<TodoListItem> todoItems) {
+        LocalDate currentDate = LocalDate.now();
+
+        int titleYear = currentDate.getYear(); //년
+        int titleMonth = currentDate.getMonthValue(); ///월
+        int tileDay = currentDate.getDayOfMonth(); //일
+        int count = 1;
+        for (TodoListItem todoListItem : todoItems) {
+            String completed = todoListItem.isCompleted() ? Ansi.BLUE + "수행" + Ansi.RESET :
+                    (todoListItem.getDate().getYear() < titleYear || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
+                            || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() == titleMonth && todoListItem.getDate().getDay() < tileDay))
+                            ? Ansi.RED + "미수행" + Ansi.RESET : Ansi.GRAY + "미수행/기간만료" + Ansi.RESET;
+
+            System.out.println(count +". 제목 : " + todoListItem.getTitle() + "  날짜:" + todoListItem.getDate().getYear() + " . " + todoListItem.getDate().getMonth()
+                    + " . " + todoListItem.getDate().getDay() + "  " + completed);
+            count++;
+        }
+
     }
 
     public static void printAdd() {
@@ -120,23 +149,23 @@ public class TodoListCommand {
                 case 1:
                     for (TodoListItem todo : todoItem) {
                         if (todo.isCompleted()) {
-                            System.out.println(Ansi.BLUE +  "제목 : " + todo.getTitle() + "날짜 : "
-                                    + todo.getDate().getYear() + "." + todo.getDate().getMonth() + "." + todo.getDate().getDay()+Ansi.RESET);
+                            System.out.println(Ansi.BLUE + "제목 : " + todo.getTitle() + "  날짜 : "
+                                    + todo.getDate().getYear() + "." + todo.getDate().getMonth() + "." + todo.getDate().getDay() + Ansi.RESET);
                         }
                     }
                     continue;
                 case 2:
                     for (TodoListItem todo : todoItem) {
-                        if(!todo.isCompleted() && todo.getDate().getYear() < titleYear || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() < titleMonth)
-                                || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() == titleMonth && todo.getDate().getDay() < tileDay))
-                        {
-                            System.out.println(Ansi.GRAY + "제목 : " + todo.getTitle() + "날짜 : "
+                        if (!todo.isCompleted() && todo.getDate().getYear() < titleYear || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() < titleMonth)
+                                || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() == titleMonth && todo.getDate().getDay() < tileDay)) {
+                            System.out.println(Ansi.GRAY + "제목 : " + todo.getTitle() + "  날짜 : "
                                     + todo.getDate().getYear() + "." + todo.getDate().getMonth() + "." + todo.getDate().getDay() + Ansi.RESET);
                         }
                     }
                     for (TodoListItem todo : todoItem) {
-                        if (!todo.isCompleted()) {
-                            System.out.println(Ansi.RED + "제목 : " + todo.getTitle() + "날짜 : "
+                        if (!todo.isCompleted() && !(todo.getDate().getYear() < titleYear || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() < titleMonth)
+                                || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() == titleMonth && todo.getDate().getDay() < tileDay))) {
+                            System.out.println(Ansi.RED + "제목 : " + todo.getTitle() + "  날짜 : "
                                     + todo.getDate().getYear() + "." + todo.getDate().getMonth() + "." + todo.getDate().getDay() + Ansi.RESET);
                         }
                     }
