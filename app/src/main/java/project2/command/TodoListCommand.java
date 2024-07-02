@@ -20,7 +20,6 @@ public class TodoListCommand {
         printMain();
         //메뉴 페이지 출력
         MainMenu();
-
     }
 
     public static void MainMenu() {
@@ -109,7 +108,6 @@ public class TodoListCommand {
             }
         }
 
-
     public static void printMain() {
         //테스트 자료 true, false에 캘린더 변화 확인
         // 미수행 : 빨강,날짜가 지난 미수행 : 회색 ,수행 : 파랑색
@@ -140,13 +138,6 @@ public class TodoListCommand {
         String a = scanner.nextLine();
     }
 
-    public static void printAllTodoList(ArrayList<TodoListItem> todoItem) { //전체 리스트 출력
-
-        for (TodoListItem todo : todoItem) {
-            System.out.println("제목 : " + todo.getTitle());
-            System.out.println("날짜 : " + todo.getDate().getYear() + "." + todo.getDate().getMonth() + "." + todo.getDate().getDay());
-        }
-    }
 
         public static void printView (ArrayList < TodoListItem > todoItem) { //조회 기능
 
