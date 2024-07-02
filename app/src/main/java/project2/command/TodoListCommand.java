@@ -1,13 +1,18 @@
-package org.example.seulki;
+package project2.command;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import project2.vo.TodoListDate;
+import project2.vo.TodoListItem;
+import project2.util.TodoListCalander;
+import project2.vo.Ansi;
+
 public class TodoListCommand {
     static Scanner scanner = new Scanner(System.in);
-    static ArrayList<TodoItem> todoItems = new ArrayList<>();
-    static TodoCalander calanders = new TodoCalander();
+    static ArrayList<TodoListItem> todoItems = new ArrayList<>();
+    static TodoListCalander calanders = new TodoListCalander();
     static public void MainCommand(){
         printMain();
 
@@ -34,7 +39,7 @@ public class TodoListCommand {
         day = scanner.nextInt();
         scanner.nextLine();
 
-        TodoDate toDate = new TodoDate(year,month,day);
+        TodoListDate toDate = new TodoListDate(year,month,day);
 
         System.out.print("작성할 제목 : ");
         title = scanner.nextLine();
@@ -50,7 +55,7 @@ public class TodoListCommand {
             completed = false;
         }
 
-        TodoItem todo = new TodoItem(title,toDate,content,completed);
+        TodoListItem todo = new TodoListItem(title,toDate,content,completed);
         todoItems.add(todo);
 
         printAllTodoList(todoItems);
@@ -58,12 +63,12 @@ public class TodoListCommand {
     }
     public static void printMain(){
         //테스트 자료 true, false에 캘린더 변화 확인
-        TodoDate toDate = new TodoDate(2024,7,1);
-        TodoItem testTodo = new TodoItem("Test",(toDate),"test",true);
+        TodoListDate toDate = new TodoListDate(2024,7,1);
+        TodoListItem testTodo = new TodoListItem("Test",(toDate),"test",true);
         todoItems.add(testTodo);
         calanders.setTodoCalander(todoItems);
-        TodoDate toDate2 = new TodoDate(2024,7,3);
-        TodoItem testTodo2 = new TodoItem("Test2",(toDate2),"test2",false);
+        TodoListDate toDate2 = new TodoListDate(2024,7,3);
+        TodoListItem testTodo2 = new TodoListItem("Test2",(toDate2),"test2",false);
         todoItems.add(testTodo2);
 
         LocalDate currentDate = LocalDate.now();
@@ -79,11 +84,11 @@ public class TodoListCommand {
         String a = scanner.nextLine();
     }
 
-    public  static void printAllTodoList(ArrayList<TodoItem> todoItem){
+    public  static void printAllTodoList(ArrayList<TodoListItem> todoItem){
 
-        for (TodoItem todo : todoItem){
-            System.out.println("제목 : " + todo.title);
-            System.out.println("날짜 : "+ todo.date.year +"."+ todo.date.month +"."+ todo.date.day);
+        for (TodoListItem todo : todoItem){
+            System.out.println("제목 : " + todo.getTitle());
+            System.out.println("날짜 : "+ todo.getDate().getYear() +"."+ todo.getDate().getMonth() +"."+ todo.getDate().getDay());
         }
 
 
