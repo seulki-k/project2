@@ -1,15 +1,21 @@
 package org.example.seulki;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class TodoCalander {
+    ArrayList<TodoItem> calanderItems;
 
     public TodoCalander() {
 
     }
+    public void setTodoCalander(ArrayList<TodoItem> todoItems) {
+        this.calanderItems = todoItems;
+    }
 
     public void setCalendar(int year, int month) {
         // Calendar 인스턴스 생성
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month - 1, 1); // 월은 0부터 시작하므로 month - 1
 
@@ -29,15 +35,30 @@ public class TodoCalander {
             System.out.print("    ");
         }
 
+
         // 날짜 출력
         for (int day = 1; day <= lastDayOfMonth; day++) {
-
+            boolean check = true;
+            for(TodoItem todo : calanderItems){
+                if(todo.date.year==year && todo.date.month==month && todo.date.day ==day && todo.isCompleted()==false) {
+                        System.out.printf(Ansi.RED + "%3d ", day);
+                        System.out.print(Ansi.RESET);
+                        check = false;
+                }
+                if(todo.date.year==year && todo.date.month==month && todo.date.day ==day && todo.isCompleted()==true) {
+                    System.out.printf(Ansi.BLUE + "%3d ", day);
+                    System.out.print(Ansi.RESET);
+                    check = false;
+                }
+            }
+            if(check){
                 System.out.printf("%3d ", day);
-
-
+            }
             if ((day + startDayOfWeek - 1) % 7 == 0) {
                 System.out.println();
             }
         }
     }
+
+
 }
