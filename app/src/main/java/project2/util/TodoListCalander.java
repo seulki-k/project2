@@ -1,15 +1,18 @@
-package org.example.seulki;
+package project2.util;
 
+import project2.vo.Ansi;
+
+import project2.vo.TodoListItem;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class TodoCalander {
-    ArrayList<TodoItem> calanderItems;
+public class TodoListCalander {
+    ArrayList<TodoListItem> calanderItems;
 
-    public TodoCalander() {
+    public TodoListCalander() {
 
     }
-    public void setTodoCalander(ArrayList<TodoItem> todoItems) {
+    public void setTodoCalander(ArrayList<TodoListItem> todoItems) {
         this.calanderItems = todoItems;
     }
 
@@ -39,13 +42,13 @@ public class TodoCalander {
         // 날짜 출력
         for (int day = 1; day <= lastDayOfMonth; day++) {
             boolean check = true;
-            for(TodoItem todo : calanderItems){
-                if(todo.date.year==year && todo.date.month==month && todo.date.day ==day && todo.isCompleted()==false) {
+            for(TodoListItem todo : calanderItems){
+                if(todo.getDate().getYear()==year && todo.getDate().getMonth()==month && todo.getDate().getDay() ==day && todo.isCompleted()==false) {
                         System.out.printf(Ansi.RED + "%3d ", day);
                         System.out.print(Ansi.RESET);
                         check = false;
                 }
-                if(todo.date.year==year && todo.date.month==month && todo.date.day ==day && todo.isCompleted()==true) {
+                if(todo.getDate().getYear()==year && todo.getDate().getMonth()==month && todo.getDate().getDay() ==day && todo.isCompleted()==true) {
                     System.out.printf(Ansi.BLUE + "%3d ", day);
                     System.out.print(Ansi.RESET);
                     check = false;

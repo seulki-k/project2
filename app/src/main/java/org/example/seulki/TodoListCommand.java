@@ -56,6 +56,15 @@ public class TodoListCommand {
 
     }
     public static void printMain(){
+        //테스트 자료 true, false에 캘린더 변화 확인
+        TodoDate toDate = new TodoDate(2024,7,1);
+        TodoItem testTodo = new TodoItem("Test",(toDate),"test",true);
+        todoItems.add(testTodo);
+        calanders.setTodoCalander(todoItems);
+        TodoDate toDate2 = new TodoDate(2024,7,3);
+        TodoItem testTodo2 = new TodoItem("Test2",(toDate2),"test2",false);
+        todoItems.add(testTodo2);
+
         LocalDate currentDate = LocalDate.now();
 
         // 연도와 월 출력
@@ -64,12 +73,13 @@ public class TodoListCommand {
         calanders.setCalendar(titleYear,titleMonth);
         System.out.println();
         System.out.println();
-        System.out.println(Ansi.YELLOW +  "TodoList 실행....." + Ansi.RESET);
-        System.out.println("Enter Key를 입력하면 프로그램이 시작됩니다.");
+        System.out.println(Ansi.YELLOW +  "TodoList 실행.....");
+        System.out.println("Enter Key를 입력하면 프로그램이 시작됩니다." + Ansi.RESET);
         String a = scanner.nextLine();
     }
 
-    public  static void printAllTodoList(ArrayList<TodoItem> todoItem){ //메인 화면 출력
+    public  static void printAllTodoList(ArrayList<TodoItem> todoItem){
+
         for (TodoItem todo : todoItem){
             System.out.println("제목 : " + todo.title);
             System.out.println("날짜 : "+ todo.date.year +"."+ todo.date.month +"."+ todo.date.day);
