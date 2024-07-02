@@ -1,13 +1,13 @@
 package project2.vo;
 
 import project2.vo.TodoListDate;
-
+import project2.util.Prompt;
 public class TodoListItem {
 
     String title; // 제목
     TodoListDate date; //날짜
     String content; //내용
-    private boolean completed; //완료 여부
+    boolean completed; //완료 여부
 
     public TodoListItem(String title, TodoListDate date, String content, boolean completed) {
         this.title = title;
