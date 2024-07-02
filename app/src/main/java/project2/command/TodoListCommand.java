@@ -80,6 +80,7 @@ public class TodoListCommand {
         TodoListItem testTodo3 = new TodoListItem("Test3", (toDate3), "test3", false);
         todoItems.add(testTodo3);
 
+
         calanders.setTodoCalander(todoItems);
 
         LocalDate currentDate = LocalDate.now();

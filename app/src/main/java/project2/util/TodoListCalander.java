@@ -75,6 +75,9 @@ public class TodoListCalander {
                 System.out.println();
             }
         }
+        System.out.println("\n" + Ansi.GREEN + "==============================" + Ansi.RESET);
+        System.out.println(Ansi.BLUE +" 수행  " + Ansi.RED + "미수행  " +  Ansi.GRAY + "미수행/기간만료");
+        System.out.println(Ansi.GREEN + "==============================" + Ansi.RESET);
     }
 
 
