@@ -34,9 +34,9 @@ public class TodoListCommand {
 
             for (TodoListItem todoListItem : todoItems) {
                 String completed = todoListItem.isCompleted() ? Ansi.BLUE + "수행" + Ansi.RESET :
-                        (todoListItem.getDate().getYear() < titleYear || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
-                                || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() == titleMonth && todoListItem.getDate().getDay() < tileDay))
-                                ? Ansi.RED + "미수행" + Ansi.RESET : Ansi.GRAY + "미수행/기간만료" + Ansi.RESET;
+                        (todoListItem.getDate().getYear() < titleYear) || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
+                                || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() == titleMonth && todoListItem.getDate().getDay() < tileDay)
+                                ? Ansi.GRAY + "미수행/기간만료" + Ansi.RESET : Ansi.RED + "미수행" + Ansi.RESET;
 
                 System.out.println(count + ". 제목 : " + todoListItem.getTitle() + "  날짜:" + todoListItem.getDate().getYear() + " . " + todoListItem.getDate().getMonth()
                         + " . " + todoListItem.getDate().getDay() + "  " + completed);
@@ -62,7 +62,6 @@ public class TodoListCommand {
 
         String title; //제목
         String content; //내용
-        boolean completed = false; //계획한 일 완료 여부
 
         System.out.print("작성할 연도 : ");
         year = scanner.nextInt();
@@ -84,16 +83,9 @@ public class TodoListCommand {
         System.out.print("작성할 내용 : ");
         content = scanner.nextLine();
 
-        System.out.print("완료 여부(Y/N) : ");
-        String answer = scanner.nextLine();
-        if (answer.equalsIgnoreCase("Y")) {
-            completed = true;
-        } else if (answer.equalsIgnoreCase("N")) {
-            completed = false;
-        }
         System.out.println("등록했습니다.");
 
-        TodoListItem todo = new TodoListItem(title, toDate, content, completed);
+        TodoListItem todo = new TodoListItem(title, toDate, content, false);
         todoItems.add(todo);
 
     }
@@ -108,7 +100,7 @@ public class TodoListCommand {
         System.out.println("====== 목록 ======");
         System.out.println("1. 수행");
         System.out.println("2. 미수행");
-        System.out.println("3. 종료");
+        System.out.println("0. 종료");
         System.out.println("==================");
         while (true) {
             int command = Prompt.inputInt("\n확인할 목록(종료 : 0) : ");
@@ -137,7 +129,7 @@ public class TodoListCommand {
                         }
                     }
                     continue;
-                case 3:
+                case 0:
                     System.out.println("조회를 종료합니다.");
                     return;
                 default:
