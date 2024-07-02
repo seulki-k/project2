@@ -30,15 +30,29 @@ public class TodoListCommand {
         int titleMonth = currentDate.getMonthValue(); ///월
         int tileDay = currentDate.getDayOfMonth(); //일
         int count = 1;
-        for (TodoListItem todoListItem : todoItems) {
-            String completed = todoListItem.isCompleted() ? Ansi.BLUE + "수행" + Ansi.RESET :
-                    (todoListItem.getDate().getYear() < titleYear || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
-                            || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() == titleMonth && todoListItem.getDate().getDay() < tileDay))
-                            ? Ansi.RED + "미수행" + Ansi.RESET : Ansi.GRAY + "미수행/기간만료" + Ansi.RESET;
+        while (true) {
 
-            System.out.println(count +". 제목 : " + todoListItem.getTitle() + "  날짜:" + todoListItem.getDate().getYear() + " . " + todoListItem.getDate().getMonth()
-                    + " . " + todoListItem.getDate().getDay() + "  " + completed);
-            count++;
+            for (TodoListItem todoListItem : todoItems) {
+                String completed = todoListItem.isCompleted() ? Ansi.BLUE + "수행" + Ansi.RESET :
+                        (todoListItem.getDate().getYear() < titleYear) || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
+                                || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() == titleMonth && todoListItem.getDate().getDay() < tileDay)
+                                ? Ansi.GRAY + "미수행/기간만료" + Ansi.RESET : Ansi.RED + "미수행" + Ansi.RESET;
+
+                System.out.println(count + ". 제목 : " + todoListItem.getTitle() + "  날짜:" + todoListItem.getDate().getYear() + " . " + todoListItem.getDate().getMonth()
+                        + " . " + todoListItem.getDate().getDay() + "  " + completed);
+                count++;
+            }
+            count =1;
+            int deleteNo = Prompt.inputInt("\n삭제할 연도(종료 : 0) : ");
+            if (deleteNo == 0) {
+                System.out.println(" 종료");
+                return;
+            }
+            if ((deleteNo > todoItems.size() - 1)) {
+                System.out.println("잘못된 입력입니다.");
+                continue;
+            }
+            todoItems.remove(deleteNo - 1);
         }
 
     }
@@ -49,7 +63,7 @@ public class TodoListCommand {
 
         String title; //제목
         String content; //내용
-        boolean completed; //계획한 일 완료 여부
+
 
         try {
             year = Prompt.inputInt("작성할 연도: ");
@@ -66,11 +80,12 @@ public class TodoListCommand {
             title = Prompt.input("작성할 제목:");
             content = Prompt.input("작성할 내용:");
 
-            completed = false;
+        System.out.print("작성할 내용 : ");
+        content = scanner.nextLine();
 
-            System.out.println("등록했습니다.");
+        System.out.println("등록했습니다.");
 
-            TodoListItem todo = new TodoListItem(title, toDate, content, completed);
+            TodoListItem todo = new TodoListItem(title, toDate, content, false);
             todoItems.add(todo);
         } catch (InputMismatchException e){
             System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
@@ -88,7 +103,7 @@ public class TodoListCommand {
         System.out.println("====== 목록 ======");
         System.out.println("1. 수행");
         System.out.println("2. 미수행");
-        System.out.println("3. 종료");
+        System.out.println("0. 종료");
         System.out.println("==================");
         while (true) {
             int command = Prompt.inputInt("\n확인할 목록(종료 : 0) : ");
@@ -117,7 +132,7 @@ public class TodoListCommand {
                         }
                     }
                     continue;
-                case 3:
+                case 0:
                     System.out.println("조회를 종료합니다.");
                     return;
                 default:
