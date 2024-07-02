@@ -64,7 +64,7 @@ public class Menu {
                 TodoListCommand.printView(todoItems);
                 break;
             case "변경":
-
+                TodoListCommand.updateView(todoItems);
                 break;
             case "삭제":
                 TodoListCommand.deleteView(todoItems);

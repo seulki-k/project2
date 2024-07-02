@@ -42,8 +42,8 @@ public class TodoListCommand {
                         + " . " + todoListItem.getDate().getDay() + "  " + completed);
                 count++;
             }
-            count =1;
-            int deleteNo = Prompt.inputInt("\n삭제할 연도(종료 : 0) : ");
+            count = 1;
+            int deleteNo = Prompt.inputInt("\n삭제할 번호(종료 : 0) : ");
             if (deleteNo == 0) {
                 System.out.println(" 종료");
                 return;
@@ -80,14 +80,14 @@ public class TodoListCommand {
             title = Prompt.input("작성할 제목:");
             content = Prompt.input("작성할 내용:");
 
-        System.out.print("작성할 내용 : ");
-        content = scanner.nextLine();
+            System.out.print("작성할 내용 : ");
+            content = scanner.nextLine();
 
-        System.out.println("등록했습니다.");
+            System.out.println("등록했습니다.");
 
             TodoListItem todo = new TodoListItem(title, toDate, content, false);
             todoItems.add(todo);
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
             scanner.nextLine();
         }
@@ -227,6 +227,83 @@ public class TodoListCommand {
                 System.out.println("숫자 값을 입력하세요.");
             }
         }
+    }
+
+    public static void updateView(ArrayList<TodoListItem> todoItems) {
+        LocalDate currentDate = LocalDate.now();
+
+        int titleYear = currentDate.getYear(); //년
+        int titleMonth = currentDate.getMonthValue(); ///월
+        int tileDay = currentDate.getDayOfMonth(); //일
+        int count = 1;
+        while (true) {
+
+            for (TodoListItem todoListItem : todoItems) {
+                String completed = todoListItem.isCompleted() ? Ansi.BLUE + "수행" + Ansi.RESET :
+                        (todoListItem.getDate().getYear() < titleYear) || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
+                                || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() == titleMonth && todoListItem.getDate().getDay() < tileDay)
+                                ? Ansi.GRAY + "미수행/기간만료" + Ansi.RESET : Ansi.RED + "미수행" + Ansi.RESET;
+
+                System.out.println(count + ". 제목 : " + todoListItem.getTitle() + "  날짜:" + todoListItem.getDate().getYear() + " . " + todoListItem.getDate().getMonth()
+                        + " . " + todoListItem.getDate().getDay() + "  " + completed);
+                count++;
+            }
+            count = 1;
+            int updateNo = Prompt.inputInt("\n변경할 번호(종료 : 0) : ");
+            if (updateNo == 0) {
+                System.out.println(" 종료");
+                return;
+            }
+            if ((updateNo > todoItems.size() - 1)) {
+                System.out.println("잘못된 입력입니다.");
+                continue;
+            }
+            int year, month, day;
+            // year,month,day 합해서 TodoItem의 Date
+
+            String title; //제목
+            String content; //내용
+
+
+            try {
+                year = Prompt.inputInt("변경할 연도: ");
+                month = Prompt.inputInt("변경할 월: ");
+
+                calanders.setCalendar(year, month);
+                System.out.println(" ");
+
+                day = Prompt.inputInt("변경할 일:");
+
+                TodoListDate toDate = new TodoListDate(year, month, day);
+
+
+                title = Prompt.input("변경할 제목:");
+                content = Prompt.input("변경할 내용:");
+                boolean check = false;
+                while (true) {
+                    String complete = Prompt.input("완료 여부(Y/N):");
+                    if (complete.equalsIgnoreCase("y")) {
+                        check = true;
+                        break;
+                    }
+                    if (complete.equalsIgnoreCase("n")) {
+                        check = false;
+                        break;
+                    }else {
+                        System.out.println(" Y 와 N 중에 골라주세요.");
+                    }
+                }
+                System.out.println("변경했습니다.");
+
+                TodoListItem todo = new TodoListItem(title, toDate, content, check);
+
+                todoItems.set((updateNo - 1), todo);
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
+                scanner.nextLine();
+            }
+        }
+
     }
 }
 
