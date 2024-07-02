@@ -6,7 +6,7 @@ import static project2.command.TodoListCommand.todoItems;
 
 
 public class Menu {
-    static String[] mainmenus = {"등록", "목록", "조회", "종료"};
+    static String[] mainmenus = {"등록", "목록", "조회", "변경", "삭제", "종료"};
 
 
     public static void mainMenu() {
@@ -20,7 +20,7 @@ public class Menu {
                     printMenu();
                 } else {
                     int menuNo = Integer.parseInt(command);
-                    if (menuNo == 4){
+                    if (menuNo == 6){
                         break;
                     }
                     String menuTitle = getMenuTitle(menuNo, mainmenus);
@@ -62,6 +62,12 @@ public class Menu {
                 break;
             case "조회":
                 TodoListCommand.printView(todoItems);
+                break;
+            case "변경":
+
+                break;
+            case "삭제":
+                TodoListCommand.deleteView(todoItems);
                 break;
 
             default:

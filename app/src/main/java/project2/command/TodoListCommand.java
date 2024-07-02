@@ -20,52 +20,7 @@ public class TodoListCommand {
         //첫 페이지 출력
         printMain();
         //메뉴 페이지 출력
-        MainMenu();
-    }
-
-    public static void MainMenu() {
-        while (true) {
-
-            System.out.println("====== 메뉴 ======");
-            System.out.println("1. 등록");
-            System.out.println("2. 목록");
-            System.out.println("3. 조회");
-            System.out.println("4. 변경");
-            System.out.println("5. 삭제");
-            System.out.println("9. 종료");
-            System.out.println("==================");
-            System.out.print("메뉴를 선택하세요: ");
-            String input = scanner.nextLine();
-
-            try {
-                int choice = Integer.parseInt(input);
-
-                switch (choice) {
-                    case 1:
-                        printAdd();
-                        break;
-                    case 2:
-                        printList(todoItems);
-                        break;
-                    case 3:
-                        printView(todoItems);
-                        break;
-                    case 4: //변경
-
-                        break;
-                    case 5: //삭제
-                        deleteView(todoItems);
-                        break;
-                    case 9:
-                        System.out.println("종료.");
-                        return;
-                    default:
-                        System.out.println("잘못된 선택입니다. 다시 선택해 주세요.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
-            }
-        }
+        Menu.mainMenu();
     }
 
     static void deleteView(ArrayList<TodoListItem> todoItems) {
