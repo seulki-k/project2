@@ -125,7 +125,9 @@ public class TodoListCommand {
                     if (todo.getDate().getDay() == day && todo.getDate().getYear() == year && todo.getDate().getMonth() == month) {
                         System.out.println("\n" + Ansi.GREEN + "============================================" + Ansi.RESET);
                         System.out.print(Ansi.BOLD + "제목 : " + todo.getTitle() + Ansi.RESET);
-                        System.out.println("  /  날짜 : " + todo.getDate().getYear() + "." + todo.getDate().getMonth() + "." + todo.getDate().getDay());
+                        System.out.print("  /  날짜 : " + todo.getDate().getYear() + "." + todo.getDate().getMonth() + "." + todo.getDate().getDay());
+                        String a = (todo.isCompleted() == true) ? Ansi.BLUE +  "  수행" + Ansi.RESET : Ansi.RED +  "  미수행"  + Ansi.RESET;
+                        System.out.println(a);
                         System.out.println(Ansi.GREEN + "============================================" + Ansi.RESET);
                         System.out.println(todo.getContent());
                         System.out.println();
