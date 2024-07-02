@@ -69,13 +69,18 @@ public class TodoListCommand {
 
     public static void printMain() {
         //테스트 자료 true, false에 캘린더 변화 확인
-        TodoListDate toDate = new TodoListDate(2024, 7, 1);
+        // 미수행 : 빨강,날짜가 지난 미수행 : 회색 ,수행 : 파랑색
+        TodoListDate toDate = new TodoListDate(2024, 7, 2);
         TodoListItem testTodo = new TodoListItem("Test", (toDate), "test", true);
         todoItems.add(testTodo);
-        calanders.setTodoCalander(todoItems);
-        TodoListDate toDate2 = new TodoListDate(2024, 7, 3);
+        TodoListDate toDate2 = new TodoListDate(2024, 7, 1);
         TodoListItem testTodo2 = new TodoListItem("Test2", (toDate2), "test2", false);
         todoItems.add(testTodo2);
+        TodoListDate toDate3 = new TodoListDate(2024, 7, 13);
+        TodoListItem testTodo3 = new TodoListItem("Test3", (toDate3), "test3", false);
+        todoItems.add(testTodo3);
+
+        calanders.setTodoCalander(todoItems);
 
         LocalDate currentDate = LocalDate.now();
 
@@ -122,13 +127,23 @@ public class TodoListCommand {
 
                 day = Prompt.inputInt("확인할 날짜(종료 : 0) : ");
                 for (TodoListItem todo : todoItem) {
+                    LocalDate currentDate = LocalDate.now();
+
+                    int titleYear = currentDate.getYear(); //년
+                    int titleMonth = currentDate.getMonthValue(); ///월
+                    int tileDay = currentDate.getDayOfMonth(); //일
+
                     if (todo.getDate().getDay() == day && todo.getDate().getYear() == year && todo.getDate().getMonth() == month) {
-                        System.out.println("\n" + Ansi.GREEN + "============================================" + Ansi.RESET);
+                        System.out.println("\n" + Ansi.GREEN + "==================================================" + Ansi.RESET);
                         System.out.print(Ansi.BOLD + "제목 : " + todo.getTitle() + Ansi.RESET);
                         System.out.print("  /  날짜 : " + todo.getDate().getYear() + "." + todo.getDate().getMonth() + "." + todo.getDate().getDay());
-                        String a = (todo.isCompleted() == true) ? Ansi.BLUE +  "  수행" + Ansi.RESET : Ansi.RED +  "  미수행"  + Ansi.RESET;
+                        String a = (todo.isCompleted() == true) ? Ansi.BLUE +  "  수행" + Ansi.RESET :
+                                (year < titleYear || (year == titleYear && month < titleMonth) || (year == titleYear && month == titleMonth&& day <tileDay))
+                                ? Ansi.GRAY + "  미수행/기간만료" + Ansi.RESET : Ansi.RED +  "  미수행"  + Ansi.RESET ;
+
+
                         System.out.println(a);
-                        System.out.println(Ansi.GREEN + "============================================" + Ansi.RESET);
+                        System.out.println(Ansi.GREEN + "==================================================" + Ansi.RESET);
                         System.out.println(todo.getContent());
                         System.out.println();
                         check = false;

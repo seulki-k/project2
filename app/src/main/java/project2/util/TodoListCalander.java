@@ -3,6 +3,8 @@ package project2.util;
 import project2.vo.Ansi;
 
 import project2.vo.TodoListItem;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -41,12 +43,24 @@ public class TodoListCalander {
 
         // 날짜 출력
         for (int day = 1; day <= lastDayOfMonth; day++) {
+            LocalDate currentDate = LocalDate.now();
+
+            int titleYear = currentDate.getYear(); //년
+            int titleMonth = currentDate.getMonthValue(); ///월
+            int tileDay = currentDate.getDayOfMonth(); //일
+
             boolean check = true;
             for(TodoListItem todo : calanderItems){
                 if(todo.getDate().getYear()==year && todo.getDate().getMonth()==month && todo.getDate().getDay() ==day && todo.isCompleted()==false) {
-                        System.out.printf(Ansi.RED + "%3d ", day);
-                        System.out.print(Ansi.RESET);
-                        check = false;
+                        if(year < titleYear || (year == titleYear && month < titleMonth) || (year == titleYear && month == titleMonth&& day <tileDay)){
+                            System.out.printf(Ansi.GRAY + "%3d ", day);
+                            System.out.print(Ansi.RESET);
+                            check = false;
+                        }else{
+                            System.out.printf(Ansi.RED + "%3d ", day);
+                            System.out.print(Ansi.RESET);
+                            check = false;
+                        }
                 }
                 if(todo.getDate().getYear()==year && todo.getDate().getMonth()==month && todo.getDate().getDay() ==day && todo.isCompleted()==true) {
                     System.out.printf(Ansi.BLUE + "%3d ", day);
