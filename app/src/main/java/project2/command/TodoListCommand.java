@@ -60,7 +60,6 @@ public class TodoListCommand {
     public static void printAdd() {
         int year, month, day;
         // year,month,day 합해서 TodoItem의 Date
-
         String title; //제목
         String content; //내용
 
@@ -73,17 +72,13 @@ public class TodoListCommand {
             System.out.println(" ");
 
             day = Prompt.inputInt("작성할 일:");
-            scanner.nextLine();
 
             TodoListDate toDate = new TodoListDate(year, month, day);
 
             title = Prompt.input("작성할 제목:");
             content = Prompt.input("작성할 내용:");
 
-        System.out.print("작성할 내용 : ");
-        content = scanner.nextLine();
-
-        System.out.println("등록했습니다.");
+            System.out.println("등록했습니다.");
 
             TodoListItem todo = new TodoListItem(title, toDate, content, false);
             todoItems.add(todo);
