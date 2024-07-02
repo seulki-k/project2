@@ -67,13 +67,36 @@ public class TodoListCommand {
 
 
         try {
-            year = Prompt.inputInt("작성할 연도: ");
-            month = Prompt.inputInt("작성할 월: ");
 
-            calanders.setCalendar(year, month);
-            System.out.println(" ");
+            while (true) {
+                year = Prompt.inputInt("작성할 연도: ");
+                if (1900 < year && year < 2100) {
+                   break;
+                } else {
+                    System.out.println("유효한 연도가 아닙니다.");
+                }
+            }
 
-            day = Prompt.inputInt("작성할 일:");
+            while (true) {
+                month = Prompt.inputInt("작성할 월: ");
+                if (0 < month && month < 13) {
+                    break;
+                } else {
+                    System.out.println("유효한 월이 아닙니다.");
+                }
+            }
+                calanders.setCalendar(year, month);
+                System.out.println(" ");
+
+
+            while (true) {
+                day = Prompt.inputInt("작성할 일:");
+                if (0 < day && day < 32) {
+                    break;
+                } else{
+                    System.out.println("유효한 일이 아닙니다.");
+                }
+            }
 
             TodoListDate toDate = new TodoListDate(year, month, day);
 
