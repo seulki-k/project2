@@ -49,40 +49,33 @@ public class TodoListCommand {
 
         String title; //제목
         String content; //내용
-        boolean completed = false; //계획한 일 완료 여부
+        boolean completed; //계획한 일 완료 여부
 
-        System.out.print("작성할 연도 : ");
-        year = scanner.nextInt();
-        System.out.print("작성할 월 : ");
-        month = scanner.nextInt();
+        try {
+            year = Prompt.inputInt("작성할 연도: ");
+            month = Prompt.inputInt("작성할 월: ");
 
-        calanders.setCalendar(year, month);
-        System.out.println(" ");
+            calanders.setCalendar(year, month);
+            System.out.println(" ");
 
-        System.out.print("작성할 일 : ");
-        day = scanner.nextInt();
-        scanner.nextLine();
+            day = Prompt.inputInt("작성할 일:");
+            scanner.nextLine();
 
-        TodoListDate toDate = new TodoListDate(year, month, day);
+            TodoListDate toDate = new TodoListDate(year, month, day);
 
-        System.out.print("작성할 제목 : ");
-        title = scanner.nextLine();
+            title = Prompt.input("작성할 제목:");
+            content = Prompt.input("작성할 내용:");
 
-        System.out.print("작성할 내용 : ");
-        content = scanner.nextLine();
-
-        System.out.print("완료 여부(Y/N) : ");
-        String answer = scanner.nextLine();
-        if (answer.equalsIgnoreCase("Y")) {
-            completed = true;
-        } else if (answer.equalsIgnoreCase("N")) {
             completed = false;
+
+            System.out.println("등록했습니다.");
+
+            TodoListItem todo = new TodoListItem(title, toDate, content, completed);
+            todoItems.add(todo);
+        } catch (InputMismatchException e){
+            System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
+            scanner.nextLine();
         }
-        System.out.println("등록했습니다.");
-
-        TodoListItem todo = new TodoListItem(title, toDate, content, completed);
-        todoItems.add(todo);
-
     }
 
     public static void printList(ArrayList<TodoListItem> todoItem) {
