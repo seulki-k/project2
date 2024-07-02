@@ -11,7 +11,6 @@ public class TodoListCommand {
     static public void MainCommand(){
         printMain();
 
-
         int year;
         int month;
         int day;
