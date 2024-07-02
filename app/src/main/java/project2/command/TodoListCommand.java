@@ -77,8 +77,10 @@ public class TodoListCommand {
         TodoListItem testTodo2 = new TodoListItem("Test2", (toDate2), "test2", false);
         todoItems.add(testTodo2);
         TodoListDate toDate3 = new TodoListDate(2024, 7, 13);
-        TodoListItem testTodo3 = new TodoListItem("Test3", (toDate3), "test3", false);
+        TodoListItem testTodo3 = new TodoListItem("Test3", (toDate3), "test3", true);
         todoItems.add(testTodo3);
+        TodoListItem testTodo4 = new TodoListItem("Test3", (toDate3), "test3", false);
+        todoItems.add(testTodo4);
 
 
         calanders.setTodoCalander(todoItems);
@@ -89,9 +91,8 @@ public class TodoListCommand {
         int titleYear = currentDate.getYear();
         int titleMonth = currentDate.getMonthValue();
         calanders.setCalendar(titleYear, titleMonth);
-        System.out.println("\n");
 
-        System.out.println(Ansi.YELLOW + "TodoList 실행.....");
+        System.out.println(Ansi.YELLOW + "\nTodoList 실행.....");
         System.out.println("Enter Key를 입력하면 프로그램이 시작됩니다." + Ansi.RESET);
         String a = scanner.nextLine();
     }
@@ -112,7 +113,7 @@ public class TodoListCommand {
         while (true) {
             boolean check = true;
             try {
-                year = Prompt.inputInt("확인할 연도(종료 : 0) : ");
+                year = Prompt.inputInt("\n확인할 연도(종료 : 0) : ");
                 if (year == 0) {
                     System.out.println("조회를 종료합니다.");
                     return;
@@ -124,9 +125,7 @@ public class TodoListCommand {
                 }
                 calanders.setCalendar(year, month);
 
-                System.out.println("\n");
-
-                day = Prompt.inputInt("확인할 날짜(종료 : 0) : ");
+                day = Prompt.inputInt("\n확인할 날짜(종료 : 0) : ");
                 for (TodoListItem todo : todoItem) {
                     LocalDate currentDate = LocalDate.now();
 
@@ -141,21 +140,18 @@ public class TodoListCommand {
                         String a = (todo.isCompleted() == true) ? Ansi.BLUE +  "  수행" + Ansi.RESET :
                                 (year < titleYear || (year == titleYear && month < titleMonth) || (year == titleYear && month == titleMonth&& day <tileDay))
                                 ? Ansi.GRAY + "  미수행/기간만료" + Ansi.RESET : Ansi.RED +  "  미수행"  + Ansi.RESET ;
-
-
                         System.out.println(a);
                         System.out.println(Ansi.GREEN + "==================================================" + Ansi.RESET);
                         System.out.println(todo.getContent());
-                        System.out.println();
                         check = false;
-                        break;
+
                     } else if (day == 0) {
                         System.out.println("조회를 종료합니다.");
                         return;
                     }
                 }
                 if(check){
-                    System.out.println("\n입력한 날짜에는 계획되어 있는 일이 없습니다.\n");
+                    System.out.println("\n입력한 날짜에는 계획되어 있는 일이 없습니다.");
                 }
 
             } catch (NumberFormatException e) {

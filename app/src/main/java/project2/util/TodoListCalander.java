@@ -14,6 +14,7 @@ public class TodoListCalander {
     public TodoListCalander() {
 
     }
+
     public void setTodoCalander(ArrayList<TodoListItem> todoItems) {
         this.calanderItems = todoItems;
     }
@@ -32,7 +33,7 @@ public class TodoListCalander {
 
         // 달력 출력
         System.out.println();
-        System.out.println(Ansi.RED +"\t\t  " + calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, java.util.Locale.getDefault()) + " " + year + Ansi.RESET);
+        System.out.println(Ansi.RED + "\t\t  " + calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, java.util.Locale.getDefault()) + " " + year + Ansi.RESET);
         System.out.println(" 일  월  화  수  목  금  토");
 
         // 첫 번째 날의 요일 위치에 맞춰서 공백 출력
@@ -49,26 +50,40 @@ public class TodoListCalander {
             int titleMonth = currentDate.getMonthValue(); ///월
             int tileDay = currentDate.getDayOfMonth(); //일
 
+            boolean check2 = true;
+            for (TodoListItem todo : calanderItems) {
+                if(todo.getDate().getYear() == year && todo.getDate().getMonth() == month && todo.getDate().getDay() == day&& todo.isCompleted() == false){
+                    check2 = false;
+                }
+            }
             boolean check = true;
-            for(TodoListItem todo : calanderItems){
-                if(todo.getDate().getYear()==year && todo.getDate().getMonth()==month && todo.getDate().getDay() ==day && todo.isCompleted()==false) {
-                        if(year < titleYear || (year == titleYear && month < titleMonth) || (year == titleYear && month == titleMonth&& day <tileDay)){
+            for (TodoListItem todo : calanderItems) {
+                if (todo.getDate().getYear() == year && todo.getDate().getMonth() == month && todo.getDate().getDay() == day && todo.isCompleted() == false) {
+                    if (year < titleYear || (year == titleYear && month < titleMonth) || (year == titleYear && month == titleMonth && day < tileDay)) {
+                        if (check) {
                             System.out.printf(Ansi.GRAY + "%3d ", day);
                             System.out.print(Ansi.RESET);
                             check = false;
-                        }else{
+                        }
+
+                    } else {
+                        if (check) {
                             System.out.printf(Ansi.RED + "%3d ", day);
                             System.out.print(Ansi.RESET);
                             check = false;
                         }
+
+                    }
                 }
-                if(todo.getDate().getYear()==year && todo.getDate().getMonth()==month && todo.getDate().getDay() ==day && todo.isCompleted()==true) {
-                    System.out.printf(Ansi.BLUE + "%3d ", day);
-                    System.out.print(Ansi.RESET);
-                    check = false;
+                if (todo.getDate().getYear() == year && todo.getDate().getMonth() == month && todo.getDate().getDay() == day && todo.isCompleted() == true) {
+                    if (check && check2 != false) {
+                        System.out.printf(Ansi.BLUE + "%3d ", day);
+                        System.out.print(Ansi.RESET);
+                        check = false;
+                    }
                 }
             }
-            if(check){
+            if (check) {
                 System.out.printf("%3d ", day);
             }
             if ((day + startDayOfWeek - 1) % 7 == 0) {
@@ -76,7 +91,7 @@ public class TodoListCalander {
             }
         }
         System.out.println("\n" + Ansi.GREEN + "==============================" + Ansi.RESET);
-        System.out.println(Ansi.BLUE +" 수행  " + Ansi.RED + "미수행  " +  Ansi.GRAY + "미수행/기간만료");
+        System.out.println(Ansi.BLUE + " 수행  " + Ansi.RED + "미수행  " + Ansi.GRAY + "미수행/기간만료");
         System.out.println(Ansi.GREEN + "==============================" + Ansi.RESET);
     }
 
