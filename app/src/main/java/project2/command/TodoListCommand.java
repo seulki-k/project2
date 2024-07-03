@@ -107,9 +107,8 @@ public class TodoListCommand {
                 TodoListItem todo = new TodoListItem(title, toDate, content, false);
                 todoItems.add(todo);
                 break;
-            } catch (InputMismatchException e) {
+            } catch (Exception e) {
                 System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
-                scanner.nextLine();
             }
         }
     }
@@ -269,6 +268,7 @@ public class TodoListCommand {
                         + " . " + todoListItem.getDate().getDay() + "  " + completed);
                 count++;
             }
+            try {
             count = 1;
             int updateNo = Prompt.inputInt("\n변경할 번호(종료 : 0) : ");
             if (updateNo == 0) {
@@ -286,7 +286,7 @@ public class TodoListCommand {
             String content; //내용
 
 
-            try {
+
 
                 year = Prompt.inputInt("변경할 연도(변경 전:" + todoItems.get(updateNo-1).getDate().getYear() + ") : ");
                 month = Prompt.inputInt("변경할 월(변경 전:" + todoItems.get(updateNo-1).getDate().getMonth() + ") : ");
@@ -320,9 +320,8 @@ public class TodoListCommand {
                 TodoListItem todo = new TodoListItem(title, toDate, content, check);
 
                 todoItems.set((updateNo - 1), todo);
-            } catch (InputMismatchException e) {
-                System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
-                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("잘못된 입력입니다. 다시 시도해 주세요.\n");
             }
         }
 
