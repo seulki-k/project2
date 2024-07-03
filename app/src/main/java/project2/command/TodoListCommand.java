@@ -85,10 +85,19 @@ public class TodoListCommand {
 
                 TodoListDate toDate = new TodoListDate(year, month, day);
 
-                title = Prompt.input("작성할 제목:");
-                content = Prompt.input("작성할 내용:");
+                    title = Prompt.input("작성할 제목(종료 : 0):");
+                    if ("0".equals(title)) {
+                        System.out.println("작성을 종료합니다.");
+                        return;
+                    }
 
-                System.out.println("등록했습니다.");
+                    content = Prompt.input("작성할 내용(종료 : 0):");
+                    if ("0".equals(content)) {
+                        System.out.println("작성을 종료합니다.");
+                        return;
+                    }
+
+                    System.out.println("등록했습니다.");
 
                 TodoListItem todo = new TodoListItem(title, toDate, content, false);
                 todoItems.add(todo);
