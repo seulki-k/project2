@@ -33,7 +33,9 @@ public class TodoListCalander {
 
         // 달력 출력
         System.out.println();
+        System.out.println("\n" + Ansi.GREEN + "==============================" + Ansi.RESET);
         System.out.println(Ansi.RED + "\t\t  " + calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, java.util.Locale.getDefault()) + " " + year + Ansi.RESET);
+        System.out.println(Ansi.GREEN + "==============================" + Ansi.RESET);
         System.out.println(" 일  월  화  수  목  금  토");
 
         // 첫 번째 날의 요일 위치에 맞춰서 공백 출력

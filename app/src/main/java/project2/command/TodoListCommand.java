@@ -270,37 +270,32 @@ public class TodoListCommand {
                 count++;
             }
             try {
-            count = 1;
-            int updateNo = Prompt.inputInt("\n변경할 번호(종료 : 0) : ");
-            if (updateNo == 0) {
-                System.out.println(" 종료");
-                return;
-            }
-            if ((updateNo > todoItems.size())) {
-                System.out.println("잘못된 입력입니다.");
-                continue;
-            }
-            int year, month, day;
-            // year,month,day 합해서 TodoItem의 Date
+                count = 1;
+                int updateNo = Prompt.inputInt("\n변경할 번호(종료 : 0) : ");
+                if (updateNo == 0) {
+                    System.out.println(" 종료");
+                    return;
+                }
+                if ((updateNo > todoItems.size())) {
+                    System.out.println("잘못된 입력입니다.");
+                    continue;
+                }
+                int year, month, day;
+                // year,month,day 합해서 TodoItem의 Date
 
-
-
-
-
-
-                year = Prompt.inputInt("변경할 연도(변경 전:" + todoItems.get(updateNo-1).getDate().getYear() + ") : ");
-                month = Prompt.inputInt("변경할 월(변경 전:" + todoItems.get(updateNo-1).getDate().getMonth() + ") : ");
+                year = Prompt.inputInt("변경할 연도(변경 전:" + todoItems.get(updateNo - 1).getDate().getYear() + ") : ");
+                month = Prompt.inputInt("변경할 월(변경 전:" + todoItems.get(updateNo - 1).getDate().getMonth() + ") : ");
 
                 calanders.setCalendar(year, month);
                 System.out.println(" ");
 
-                day = Prompt.inputInt("변경할 일(변경 전 :" + todoItems.get(updateNo-1).getDate().getDay() + ") : ");
+                day = Prompt.inputInt("변경할 일(변경 전 :" + todoItems.get(updateNo - 1).getDate().getDay() + ") : ");
 
                 TodoListDate toDate = new TodoListDate(year, month, day);
 
-                title = Prompt.input("변경할 제목(변경 전:" + todoItems.get(updateNo-1).getTitle() + ") : ");
+                title = Prompt.input("변경할 제목(변경 전:" + todoItems.get(updateNo - 1).getTitle() + ") : ");
 
-                content = Prompt.input("변경할 내용(변경 전:" + todoItems.get(updateNo-1).getContent() + ") : ");
+                content = Prompt.input("변경할 내용(변경 전:" + todoItems.get(updateNo - 1).getContent() + ") : ");
 
                 boolean check = false;
                 while (true) {
@@ -312,7 +307,7 @@ public class TodoListCommand {
                     if (complete.equalsIgnoreCase("n")) {
                         check = false;
                         break;
-                    }else {
+                    } else {
                         System.out.println(" Y 와 N 중에 골라주세요.");
                     }
                 }
