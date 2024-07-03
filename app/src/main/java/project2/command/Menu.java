@@ -56,19 +56,19 @@ public class Menu {
     public static void processMenu(String menuTitle) {
         switch (menuTitle) {
             case "등록":
-                TodoListCommand.printAdd();
+                TodoListAdd.printAdd();
                 break;
             case "목록":
-                TodoListCommand.printList(todoItems);
+                TodoListList.printList(todoItems);
                 break;
             case "조회":
-                TodoListCommand.printView(todoItems);
+                TodoListView.printView(todoItems);
                 break;
             case "변경":
-                TodoListCommand.updateView(todoItems);
+                TodoListUpdate.updateView(todoItems);
                 break;
             case "삭제":
-                TodoListCommand.deleteView(todoItems);
+                TodoListDelete.deleteView(todoItems);
                 break;
 
             default:
