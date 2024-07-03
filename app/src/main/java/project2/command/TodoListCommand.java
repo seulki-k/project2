@@ -2,6 +2,7 @@ package project2.command;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -67,35 +68,20 @@ public class TodoListCommand {
 
         while (true) {
             try {
-                while (true) {
-                    year = Prompt.inputInt("작성할 연도: ");
-                    if (1900 < year && year < 2100) {
-                        break;
-                    } else {
-                        System.out.println("유효한 연도가 아닙니다.");
-                    }
-                }
+                year = Prompt.inputInt2(1900, 2100, "작성할 연도: ");
 
-                while (true) {
-                    month = Prompt.inputInt("작성할 월: ");
-                    if (0 < month && month < 13) {
-                        break;
-                    } else {
-                        System.out.println("유효한 월이 아닙니다.");
-                    }
-                }
+                month = Prompt.inputInt2(0, 12, "작성할 월: ");
+
                 calanders.setCalendar(year, month);
                 System.out.println(" ");
 
+                calanders.setCalendar(year, month);
+                System.out.println(" ");
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month - 1, 1);
+                int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-                while (true) {
-                    day = Prompt.inputInt("작성할 일:");
-                    if (0 < day && day < 32) {
-                        break;
-                    } else {
-                        System.out.println("유효한 일이 아닙니다.");
-                    }
-                }
+                day = Prompt.inputInt2(1, lastDay, "작성할 일:");
 
                 TodoListDate toDate = new TodoListDate(year, month, day);
 
@@ -283,13 +269,16 @@ public class TodoListCommand {
                 int year, month, day;
                 // year,month,day 합해서 TodoItem의 Date
 
-                year = Prompt.inputInt("변경할 연도(변경 전:" + todoItems.get(updateNo - 1).getDate().getYear() + ") : ");
-                month = Prompt.inputInt("변경할 월(변경 전:" + todoItems.get(updateNo - 1).getDate().getMonth() + ") : ");
+                year = Prompt.inputInt2(1900, 2100, "변경할 연도(변경 전:" + todoItems.get(updateNo - 1).getDate().getYear() + ") : ");
+
+                month = Prompt.inputInt2(1, 12, "변경할 월(변경 전:" + todoItems.get(updateNo - 1).getDate().getMonth() + ") : ");
 
                 calanders.setCalendar(year, month);
                 System.out.println(" ");
-
-                day = Prompt.inputInt("변경할 일(변경 전 :" + todoItems.get(updateNo - 1).getDate().getDay() + ") : ");
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month - 1, 1);
+                int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                day = Prompt.inputInt2(1, lastDay, "변경할 일(변경 전 :" + todoItems.get(updateNo - 1).getDate().getDay() + ") : ");
 
                 TodoListDate toDate = new TodoListDate(year, month, day);
 
