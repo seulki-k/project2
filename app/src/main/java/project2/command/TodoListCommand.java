@@ -65,51 +65,52 @@ public class TodoListCommand {
         String title; //제목
         String content; //내용
 
-
-        try {
-
-            while (true) {
-                year = Prompt.inputInt("작성할 연도: ");
-                if (1900 < year && year < 2100) {
-                   break;
-                } else {
-                    System.out.println("유효한 연도가 아닙니다.");
+        while (true) {
+            try {
+                while (true) {
+                    year = Prompt.inputInt("작성할 연도: ");
+                    if (1900 < year && year < 2100) {
+                        break;
+                    } else {
+                        System.out.println("유효한 연도가 아닙니다.");
+                    }
                 }
-            }
 
-            while (true) {
-                month = Prompt.inputInt("작성할 월: ");
-                if (0 < month && month < 13) {
-                    break;
-                } else {
-                    System.out.println("유효한 월이 아닙니다.");
+                while (true) {
+                    month = Prompt.inputInt("작성할 월: ");
+                    if (0 < month && month < 13) {
+                        break;
+                    } else {
+                        System.out.println("유효한 월이 아닙니다.");
+                    }
                 }
-            }
                 calanders.setCalendar(year, month);
                 System.out.println(" ");
 
 
-            while (true) {
-                day = Prompt.inputInt("작성할 일:");
-                if (0 < day && day < 32) {
-                    break;
-                } else{
-                    System.out.println("유효한 일이 아닙니다.");
+                while (true) {
+                    day = Prompt.inputInt("작성할 일:");
+                    if (0 < day && day < 32) {
+                        break;
+                    } else {
+                        System.out.println("유효한 일이 아닙니다.");
+                    }
                 }
+
+                TodoListDate toDate = new TodoListDate(year, month, day);
+
+                title = Prompt.input("작성할 제목:");
+                content = Prompt.input("작성할 내용:");
+
+                System.out.println("등록했습니다.");
+
+                TodoListItem todo = new TodoListItem(title, toDate, content, false);
+                todoItems.add(todo);
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
+                scanner.nextLine();
             }
-
-            TodoListDate toDate = new TodoListDate(year, month, day);
-
-            title = Prompt.input("작성할 제목:");
-            content = Prompt.input("작성할 내용:");
-
-            System.out.println("등록했습니다.");
-
-            TodoListItem todo = new TodoListItem(title, toDate, content, false);
-            todoItems.add(todo);
-        } catch (InputMismatchException e) {
-            System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
-            scanner.nextLine();
         }
     }
 
