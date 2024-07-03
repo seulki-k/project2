@@ -175,7 +175,7 @@ public class TodoListCommand {
         TodoListDate toDate3 = new TodoListDate(2024, 7, 13);
         TodoListItem testTodo3 = new TodoListItem("Test3", (toDate3), "test3", true);
         todoItems.add(testTodo3);
-        TodoListItem testTodo4 = new TodoListItem("Test4", (toDate3), "test4", false);
+        TodoListItem testTodo4 = new TodoListItem("Test4", (toDate3), "강슬기/김재정 팀의 TodoList 프로그램입니다.실행 완료한 항목은 파랑, 그렇지 않으면  빨강이 출력되며, 그렇지 않은 항목 중에 금일보다 날짜가 이전이면 회색으로 표시됩니다.", false);
         todoItems.add(testTodo4);
 
 
