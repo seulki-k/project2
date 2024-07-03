@@ -49,7 +49,7 @@ public class TodoListCommand {
                 System.out.println(" 종료");
                 return;
             }
-            if ((deleteNo > todoItems.size() - 1)) {
+            if ((deleteNo > todoItems.size())) {
                 System.out.println("잘못된 입력입니다.");
                 continue;
             }
@@ -122,12 +122,12 @@ public class TodoListCommand {
 
                     System.out.println("등록했습니다.");
 
-                    TodoListItem todo = new TodoListItem(title, toDate, content, false);
-                    todoItems.add(todo);
-
-                } catch (NumberFormatException e) {
-                    System.out.println("잘못된 입력입니다. 숫자를 입력해 주세요.");
-                }
+                TodoListItem todo = new TodoListItem(title, toDate, content, false);
+                todoItems.add(todo);
+                break;
+            } catch (Exception e) {
+                System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
+            }
         }
     }
 
@@ -156,8 +156,8 @@ public class TodoListCommand {
                     continue;
                 case 2:
                     for (TodoListItem todo : todoItem) {
-                        if (!todo.isCompleted() && todo.getDate().getYear() < titleYear || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() < titleMonth)
-                                || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() == titleMonth && todo.getDate().getDay() < tileDay)) {
+                        if (!todo.isCompleted() && (todo.getDate().getYear() < titleYear || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() < titleMonth)
+                                || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() == titleMonth && todo.getDate().getDay() < tileDay))) {
                             System.out.println(Ansi.GRAY + "제목 : " + todo.getTitle() + "  날짜 : "
                                     + todo.getDate().getYear() + "." + todo.getDate().getMonth() + "." + todo.getDate().getDay() + Ansi.RESET);
                         }
@@ -193,7 +193,7 @@ public class TodoListCommand {
         TodoListDate toDate3 = new TodoListDate(2024, 7, 13);
         TodoListItem testTodo3 = new TodoListItem("Test3", (toDate3), "test3", true);
         todoItems.add(testTodo3);
-        TodoListItem testTodo4 = new TodoListItem("Test3", (toDate3), "test3", false);
+        TodoListItem testTodo4 = new TodoListItem("Test4", (toDate3), "test4", false);
         todoItems.add(testTodo4);
 
 
@@ -269,7 +269,8 @@ public class TodoListCommand {
 
     public static void updateView(ArrayList<TodoListItem> todoItems) {
         LocalDate currentDate = LocalDate.now();
-
+        String title; //제목
+        String content; //내용
         int titleYear = currentDate.getYear(); //년
         int titleMonth = currentDate.getMonthValue(); ///월
         int tileDay = currentDate.getDayOfMonth(); //일
@@ -286,37 +287,34 @@ public class TodoListCommand {
                         + " . " + todoListItem.getDate().getDay() + "  " + completed);
                 count++;
             }
-            count = 1;
-            int updateNo = Prompt.inputInt("\n변경할 번호(종료 : 0) : ");
-            if (updateNo == 0) {
-                System.out.println(" 종료");
-                return;
-            }
-            if ((updateNo > todoItems.size())) {
-                System.out.println("잘못된 입력입니다.");
-                continue;
-            }
-            int year, month, day;
-            // year,month,day 합해서 TodoItem의 Date
-
-            String title; //제목
-            String content; //내용
-
             try {
+                count = 1;
+                int updateNo = Prompt.inputInt("\n변경할 번호(종료 : 0) : ");
+                if (updateNo == 0) {
+                    System.out.println(" 종료");
+                    return;
+                }
+                if ((updateNo > todoItems.size())) {
+                    System.out.println("잘못된 입력입니다.");
+                    continue;
+                }
+                int year, month, day;
+                // year,month,day 합해서 TodoItem의 Date
 
-                year = Prompt.inputInt("변경할 연도(변경 전:" + todoItems.get(updateNo-1).getDate().getYear() + ") : ");
-                month = Prompt.inputInt("변경할 월(변경 전:" + todoItems.get(updateNo-1).getDate().getMonth() + ") : ");
+                year = Prompt.inputInt("변경할 연도(변경 전:" + todoItems.get(updateNo - 1).getDate().getYear() + ") : ");
+                month = Prompt.inputInt("변경할 월(변경 전:" + todoItems.get(updateNo - 1).getDate().getMonth() + ") : ");
 
                 calanders.setCalendar(year, month);
                 System.out.println(" ");
 
-                day = Prompt.inputInt("변경할 일(변경 전 :" + todoItems.get(updateNo-1).getDate().getDay() + ") : ");
+                day = Prompt.inputInt("변경할 일(변경 전 :" + todoItems.get(updateNo - 1).getDate().getDay() + ") : ");
 
                 TodoListDate toDate = new TodoListDate(year, month, day);
 
+                title = Prompt.input("변경할 제목(변경 전:" + todoItems.get(updateNo - 1).getTitle() + ") : ");
 
-                title = Prompt.input("변경할 제목(변경 전:" + todoItems.get(updateNo-1).getTitle() + ") : ");
-                content = Prompt.input("변경할 내용(변경 전:" + todoItems.get(updateNo-1).getContent() + ") : ");
+                content = Prompt.input("변경할 내용(변경 전:" + todoItems.get(updateNo - 1).getContent() + ") : ");
+
                 boolean check = false;
                 while (true) {
                     String complete = Prompt.input("완료 여부(Y/N):");
@@ -327,7 +325,7 @@ public class TodoListCommand {
                     if (complete.equalsIgnoreCase("n")) {
                         check = false;
                         break;
-                    }else {
+                    } else {
                         System.out.println(" Y 와 N 중에 골라주세요.");
                     }
                 }
@@ -336,9 +334,8 @@ public class TodoListCommand {
                 TodoListItem todo = new TodoListItem(title, toDate, content, check);
 
                 todoItems.set((updateNo - 1), todo);
-            } catch (InputMismatchException e) {
-                System.out.println("잘못된 입력입니다. 다시 시도해 주세요.");
-                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("잘못된 입력입니다. 다시 시도해 주세요.\n");
             }
         }
 

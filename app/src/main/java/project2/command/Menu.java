@@ -1,6 +1,7 @@
 package project2.command;
 
 import project2.util.Prompt;
+import project2.vo.Ansi;
 
 import static project2.command.TodoListCommand.todoItems;
 
@@ -41,11 +42,11 @@ public class Menu {
 
 
     public static void printMenu() {
-        System.out.println("====== 메뉴 ======");
+        System.out.println(Ansi.GREEN + "====== 메뉴 ======" + Ansi.RESET);
         for (int i = 0; i < mainmenus.length; i++) {
             System.out.printf("%d. %s\n", (i + 1), mainmenus[i]);
         }
-        System.out.println("==================");
+        System.out.println(Ansi.GREEN + "==================" + Ansi.RESET);
     }
 
     public static String getMenuTitle(int menuNo, String[] menus) {
@@ -73,5 +74,6 @@ public class Menu {
             default:
                 System.out.println("잘못된 선택입니다. 다시 선택해 주세요.");
         }
+        printMenu();
     }
 }
