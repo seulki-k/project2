@@ -251,7 +251,8 @@ public class TodoListCommand {
 
     public static void updateView(ArrayList<TodoListItem> todoItems) {
         LocalDate currentDate = LocalDate.now();
-
+        String title; //제목
+        String content; //내용
         int titleYear = currentDate.getYear(); //년
         int titleMonth = currentDate.getMonthValue(); ///월
         int tileDay = currentDate.getDayOfMonth(); //일
@@ -282,8 +283,7 @@ public class TodoListCommand {
             int year, month, day;
             // year,month,day 합해서 TodoItem의 Date
 
-            String title; //제목
-            String content; //내용
+
 
 
 
@@ -299,7 +299,9 @@ public class TodoListCommand {
                 TodoListDate toDate = new TodoListDate(year, month, day);
 
                 title = Prompt.input("변경할 제목(변경 전:" + todoItems.get(updateNo-1).getTitle() + ") : ");
-                content = Prompt.input("변경할 내용(변경 전:" + todoItems.get(updateNo+1).getContent() + ") : ");
+
+                content = Prompt.input("변경할 내용(변경 전:" + todoItems.get(updateNo-1).getContent() + ") : ");
+
                 boolean check = false;
                 while (true) {
                     String complete = Prompt.input("완료 여부(Y/N):");
