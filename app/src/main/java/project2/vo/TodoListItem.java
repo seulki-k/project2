@@ -33,13 +33,7 @@ public class TodoListItem {
     }
 
     public String getContent() {
-        int checkline = content.length()/30;
-        String answer = "";
-        for (int i = 0; i < checkline; i++) {
-            answer += content.substring(i*30,(i+1)*30) + "\n";
-        }
-        answer += content.substring(content.length()- (content.length()%30));
-        return answer;
+        return content;
     }
 
     public void setContent(String content) {
