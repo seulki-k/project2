@@ -33,7 +33,7 @@ public class TodoListCommand {
         int tileDay = currentDate.getDayOfMonth(); //일
         int count = 1;
         while (true) {
-
+            System.out.println(Ansi.GREEN + "====== 삭제 ======" + Ansi.RESET);
             for (TodoListItem todoListItem : todoItems) {
                 String completed = todoListItem.isCompleted() ? Ansi.BLUE + "수행" + Ansi.RESET :
                         (todoListItem.getDate().getYear() < titleYear) || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
@@ -68,6 +68,7 @@ public class TodoListCommand {
 
         while (true) {
             try {
+                System.out.println(Ansi.GREEN + "====== 등록 ======" + Ansi.RESET);
                 year = Prompt.inputInt2(1900, 2100, "작성할 연도: ");
 
                 month = Prompt.inputInt2(0, 12, "작성할 월: ");
@@ -115,12 +116,13 @@ public class TodoListCommand {
         int titleMonth = currentDate.getMonthValue(); ///월
         int tileDay = currentDate.getDayOfMonth(); //일
 
-        System.out.println("====== 목록 ======");
-        System.out.println("1. 수행");
-        System.out.println("2. 미수행");
-        System.out.println("0. 종료");
-        System.out.println("==================");
+
         while (true) {
+            System.out.println(Ansi.GREEN + "====== 목록 ======" + Ansi.RESET);
+            System.out.println("1. 수행");
+            System.out.println("2. 미수행");
+            System.out.println("0. 종료");
+            System.out.println(Ansi.GREEN + "==================" + Ansi.RESET);
             int command = Prompt.inputInt("\n확인할 목록(종료 : 0) : ");
             switch (command) {
                 case 1:
@@ -193,9 +195,9 @@ public class TodoListCommand {
 
         int year, month, day;
 
-
         while (true) {
             boolean check = true;
+            System.out.println(Ansi.GREEN + "====== 조회 ======" + Ansi.RESET);
             try {
                 year = Prompt.inputInt("\n확인할 연도(종료 : 0) : ");
                 if (year == 0) {
@@ -252,8 +254,9 @@ public class TodoListCommand {
         int titleMonth = currentDate.getMonthValue(); ///월
         int tileDay = currentDate.getDayOfMonth(); //일
         int count = 1;
-        while (true) {
 
+        while (true) {
+            System.out.println(Ansi.GREEN + "====== 변경 ======" + Ansi.RESET);
             for (TodoListItem todoListItem : todoItems) {
                 String completed = todoListItem.isCompleted() ? Ansi.BLUE + "수행" + Ansi.RESET :
                         (todoListItem.getDate().getYear() < titleYear) || (todoListItem.getDate().getYear() == titleYear && todoListItem.getDate().getMonth() < titleMonth)
