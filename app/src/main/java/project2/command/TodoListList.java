@@ -36,6 +36,10 @@ public class TodoListList {
                                 count++;
                             }
                         }
+                        if(count ==1) {
+                            System.out.println("수행 항목이 없습니다.");
+                            continue ;
+                        }
                         count = 1;
                         continue;
                     case 2:
@@ -47,6 +51,7 @@ public class TodoListList {
                                 count++;
                             }
                         }
+
                         for (TodoListItem todo : todoItem) {
                             if (!todo.isCompleted() && !(todo.getDate().getYear() < titleYear || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() < titleMonth)
                                     || (todo.getDate().getYear() == titleYear && todo.getDate().getMonth() == titleMonth && todo.getDate().getDay() < tileDay))) {
@@ -55,7 +60,10 @@ public class TodoListList {
                                 count++;
                             }
                         }
-
+                        if (count ==1){
+                            System.out.println("미수행 항목이 없습니다.");
+                            continue ;
+                        }
                         while (true) {
                             String command3 = Prompt.input("수행한 항목이 있으신가요(Y/N)?");
                             if (command3.equalsIgnoreCase("y")) {
@@ -79,6 +87,7 @@ public class TodoListList {
                                         TodoListItem todo2 = new TodoListItem(todo.getTitle(), todo.getDate(), todo.getContent(), true);
                                         if (todos.equals(todo)) {
                                             TodoListCommand.todoItems.set(count2, todo2);
+                                            continue a;
                                         }
                                     }
                                     count++;
@@ -91,6 +100,7 @@ public class TodoListList {
                                         TodoListItem todo2 = new TodoListItem(todo.getTitle(), todo.getDate(), todo.getContent(), true);
                                         if (todos.equals(todo)) {
                                             TodoListCommand.todoItems.set(count2, todo2);
+                                            continue a;
                                         }
                                     }
                                     count++;
