@@ -1,6 +1,7 @@
 package project2.vo;
 
 
+import java.util.Objects;
 
 public class TodoItem {
 
@@ -14,6 +15,29 @@ public class TodoItem {
         this.date = date;
         this.content = content;
         this.completed = completed;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        TodoItem todoItem = (TodoItem) object;
+        return completed == todoItem.completed && Objects.equals(title, todoItem.title) && Objects.equals(date, todoItem.date) && Objects.equals(content, todoItem.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, date, content, completed);
+    }
+
+    @Override
+    public String toString() {
+        return "TodoItem{" +
+                "title='" + title + '\'' +
+                ", date=" + date +
+                ", content='" + content + '\'' +
+                ", completed=" + completed +
+                '}';
     }
 
     public String getTitle() {
