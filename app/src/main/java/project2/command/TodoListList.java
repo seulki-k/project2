@@ -56,7 +56,6 @@ public class TodoListList {
                             }
                         }
 
-
                         while (true) {
                             String command3 = Prompt.input("수행한 항목이 있으신가요(Y/N)?");
                             if (command3.equalsIgnoreCase("y")) {
