@@ -25,8 +25,6 @@ public class TodoListAdd {
                 TodoListCommand.calanders.setCalendar(year, month);
                 System.out.println(" ");
 
-                TodoListCommand.calanders.setCalendar(year, month);
-                System.out.println(" ");
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month - 1, 1);
                 int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);

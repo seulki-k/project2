@@ -3,7 +3,6 @@ package project2.command;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import project2.vo.TodoListDate;
 import project2.vo.TodoListItem;
 import project2.util.TodoListCalander;
@@ -35,7 +34,15 @@ public class TodoListCommand {
         todoItems.add(testTodo3);
         TodoListItem testTodo4 = new TodoListItem("Test4", (toDate3), "test4", false);
         todoItems.add(testTodo4);
-
+        TodoListDate toDate5 = new TodoListDate(2024, 7, 20);
+        TodoListItem testTodo5 = new TodoListItem("Test5", (toDate5), "test5", false);
+        todoItems.add(testTodo5);
+        TodoListDate toDate6 = new TodoListDate(2024, 7, 13);
+        TodoListItem testTodo6 = new TodoListItem("Test6", (toDate6), "test6", false);
+        todoItems.add(testTodo6);
+        TodoListDate toDate7 = new TodoListDate(2024, 7, 5);
+        TodoListItem testTodo7 = new TodoListItem("Test7", (toDate7), "test7", true);
+        todoItems.add(testTodo7);
 
         calanders.setTodoCalander(todoItems);
 
@@ -48,9 +55,7 @@ public class TodoListCommand {
 
         System.out.println(Ansi.YELLOW + "\nTodoList 실행.....");
         System.out.println("Enter Key를 입력하면 프로그램이 시작됩니다." + Ansi.RESET);
-        String a = scanner.nextLine();
+        scanner.nextLine();
     }
-
-
 }
 
